@@ -132,3 +132,18 @@ extension XCUIApplication {
 }
 ```
 
+## Alerts
+
+* System Alerts
+```
+To dismiss system alerts that might otherwise interrupt UI tests, add to setUp():
+
+addUIInterruptionMonitor(withDescription: "System Dialog") { (alert) -> Bool in
+   // Tap "Allow" button
+   alert.buttons["Allow"].tap()
+   return true
+ }
+ // Need to interact with App
+ app.tap()
+```
+
