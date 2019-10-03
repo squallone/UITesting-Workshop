@@ -23,6 +23,8 @@ Querying the application proxy for elements:
 * Query returns a collection of elements
 * Query by identifier (label, title, accessibility identifier), element type or with a predicate.
 
+https://developer.apple.com/documentation/xctest/xcuielementquery
+
 ```
 // See XCUIElement.ElementType for full list
 .button 
