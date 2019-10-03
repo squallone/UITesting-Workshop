@@ -1,7 +1,7 @@
 # UITesting Workshop
 
 ## XCUIApplication
-XCUIApplication is a proxy for your App (the App runs in a separate process):
+`XCUIApplication` is a proxy for your App (the App runs in a separate process):
 
 * Use to launch, activate or terminate App. Only one instance can run at a time.
 * Set launch arguments and launch environment.
@@ -59,7 +59,7 @@ let addButton = app.navigationBars.children(matching: .button)
 
 
 ## XCUIElement
-You interact with and test properties of an XCUIElement:
+You interact with and test properties of an `XCUIElement`:
 
 * The element is the result of a query that matches one unique instance
 * A number of methods will return a single element from a query
