@@ -7,6 +7,8 @@ XCUIApplication is a proxy for your App (the App runs in a separate process):
 * Set launch arguments and launch environment.
 * Root of all queries for elements.
 
+https://developer.apple.com/documentation/xctest/xcuiapplication
+
 ```
 let app = XCUIApplication()
 app.launchArguments += ["-enableTestMode","1"]
@@ -57,10 +59,12 @@ let addButton = app.navigationBars.children(matching: .button)
 ## XCUIElement
 You interact with and test properties of an XCUIElement:
 
-* The element is the result of a query that matches one unique instance.
-* A number of methods will return a single element from a query.
-* Use Element when a query should only return one element (fails if there are multiple elements).
-* Use firstMatch when you only care about finding the first element from many.
+* The element is the result of a query that matches one unique instance
+* A number of methods will return a single element from a query
+* Use Element when a query should only return one element (fails if there are multiple elements)
+* Use firstMatch when you only care about finding the first element from many
+
+https://developer.apple.com/documentation/xctest/xcuielement
 
 * Getting an element from a query:
 ```
