@@ -9,7 +9,7 @@
 
 https://developer.apple.com/documentation/xctest/xcuiapplication
 
-```
+```swift
 let app = XCUIApplication()
 app.launchArguments += ["-enableTestMode","1"]
 app.launchEnvironment["DEBUG_LEVEL"] = "5"
@@ -25,7 +25,7 @@ Querying the application proxy for elements:
 
 https://developer.apple.com/documentation/xctest/xcuielementquery
 
-```
+```swift
 // See XCUIElement.ElementType for full list
 .button 
 .cell            // table or collection view cells
@@ -42,7 +42,7 @@ https://developer.apple.com/documentation/xctest/xcuielementquery
 
 * Query for descendant element:
 
-```
+```swift
 // Find all buttons
 let buttonQuery = app.descendants(matching: .button)
 XCTAssertTrue(buttonQuery.count == 2)
@@ -52,7 +52,7 @@ let allLabels = app.descendants(matching: .staticText)
 ```
 
 * When you only want a direct (child) descendant:
-```
+```swift
 // Find nav bar button
 let addButton = app.navigationBars.children(matching: .button)
 ```
@@ -69,7 +69,7 @@ You interact with and test properties of an `XCUIElement`:
 https://developer.apple.com/documentation/xctest/xcuielement
 
 * Getting an element from a query:
-```
+```swift
 // Query for all buttons
 let buttonQuery = app.descendants(matching: .button)
 
@@ -88,6 +88,29 @@ let textField = app.textFields.element
 let firstButton = buttonQuery.firstMatch
 ```
 
+## UI Events
+Once we find our element, we need to simulate user interactions. `XCUIElements` provides some APIs you can use to interact with `UIElement`:
+
+* `tap()`
+* `doubleTap()`
+* `press(forDuration:, thenDragTo:)`
+* `twoFingerTap()`
+* `swipeUp(), swipeDown(), swipeLeft(), swipeRight()`
+* `typeText("")`
+
+An example of a tap API test
+
+```swift
+func testExample() throws {
+ // UI tests must launch the application that they test.
+ let app = XCUIApplication()
+ app.launch()
+ XCTAssertEqual(app.tables.cells.count, 6)
+ let cell = app.tables.staticTexts["San Francisco"]
+ cell.tap()
+}
+```
+
 ## Launch Argumetns
 
 * Adding and arguments
@@ -96,7 +119,7 @@ app.launchArguments.append("--uitesting")
 ```
 
 * Resetting your app’s state
-```
+```swift
 func application(_ application: UIApplication,
                  didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]?) -> Bool {
     if CommandLine.arguments.contains("--uitesting") {
@@ -109,7 +132,7 @@ func application(_ application: UIApplication,
 }
 ```
 * Executing different flows
-```
+```swift
 func makeProfileViewController() -> UIViewController {
     if CommandLine.arguments.contains("-new-profile") {
         // If the "-new-profile" argument was passed, then return
@@ -126,11 +149,11 @@ func makeProfileViewController() -> UIViewController {
 ## Creating extensions
 
 * Verifying state in a UI test
-```
+```swift
 XCTAssertTrue(app.isDisplayingOnboarding)
 ```
 
-```
+```swift
 extension XCUIApplication {
     var isDisplayingOnboarding: Bool {
         return otherElements["onboardingView"].exists
@@ -141,9 +164,9 @@ extension XCUIApplication {
 ## Alerts
 
 * System Alerts
-```
-To dismiss system alerts that might otherwise interrupt UI tests, add to setUp():
 
+To dismiss system alerts that might otherwise interrupt UI tests, add to setUp():
+```swift
 addUIInterruptionMonitor(withDescription: "System Dialog") { (alert) -> Bool in
    // Tap "Allow" button
    alert.buttons["Allow"].tap()
